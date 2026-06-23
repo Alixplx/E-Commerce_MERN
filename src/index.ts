@@ -1,6 +1,8 @@
 import express from "express"
 import mongoose from "mongoose"
 import userRoute from "../src/routes/userRoute.ts"
+import productRoute from "../src/routes/productRoute.ts"
+import { seedInitialProducts } from "./services/productService.ts"
 
 
 const app = express()
@@ -15,8 +17,12 @@ mongoose
     .catch((err) => console.log("Failed to Connect", err))
 
 
-app.use("/user", userRoute)
+// Seed the Products To DB
+seedInitialProducts()
 
+
+app.use("/user", userRoute)
+app.use("/product", productRoute)
 
 app.listen(port, () => {
 
