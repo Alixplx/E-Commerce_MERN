@@ -1,6 +1,7 @@
 import express from "express"
 import mongoose from "mongoose"
 import userRoute from "../src/routes/userRoute.ts"
+import cartRoute from "../src/routes/cartRoute.ts"
 import productRoute from "../src/routes/productRoute.ts"
 import { seedInitialProducts } from "./services/productService.ts"
 
@@ -23,6 +24,7 @@ seedInitialProducts()
 
 app.use("/user", userRoute)
 app.use("/product", productRoute)
+app.use("/cart", cartRoute)
 
 app.listen(port, () => {
 

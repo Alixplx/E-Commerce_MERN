@@ -35,6 +35,7 @@ export const register = async ({firstName, lastName, email, password}: RegisterP
     return {data: generateJWT({firstName, lastName, email}), statusCode: 200}
 }
 
+
 export const login = async ({ email, password}: LoginParams) => {
 
     const findUser = await userModel.findOne({ email})
