@@ -4,7 +4,7 @@ import type { IProduct } from "./productModel.ts"
 
 const cartStatusEnum = ["active", "completed"]
 
-export interface ICartitem {
+export interface ICartItem {
 
     product: IProduct
     unitPrice: number
@@ -15,12 +15,12 @@ export interface ICartitem {
 export interface ICart extends Document {
 
     userId: ObjectId | string
-    items: ICartitem[]
+    items: ICartItem[]
     totalAmount: number
     status: "active" | "completed"
 }
 
-const cartItemSchema = new Schema<ICartitem>({
+const cartItemSchema = new Schema<ICartItem>({
 
     product: { type: Schema.Types.ObjectId, ref: "Product", required: true},
     quantity: { type: Number, required: true, default: 1},

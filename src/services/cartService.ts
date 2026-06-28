@@ -1,4 +1,4 @@
-import { cartModel } from "../models/cartModel.ts"
+import { cartModel, type ICart, type ICartItem } from "../models/cartModel.ts"
 import productModel from "../models/productModel.ts"
 
 
@@ -109,11 +109,7 @@ export const updateItemInCart = async ({ productId, quantity, userId}: UpdateIte
 
     const otherCartItems = cart.items.filter((p) => p.product.toString() !== productId)
     
-    let total = otherCartItems.reduce((sum, product) => {
-        
-        sum += product.quantity * product.unitPrice
-        return sum
-    }, 0)
+    let total = calculateCartTotalItems({ cartItems: otherCartItems})
     
     existsInCart.quantity = quantity
     total += existsInCart.quantity * existsInCart.unitPrice
@@ -123,4 +119,65 @@ export const updateItemInCart = async ({ productId, quantity, userId}: UpdateIte
     const updatedCart = await cart.save()
     
     return { data: updatedCart, statusCode: 200}
+}
+
+
+
+interface DeleteItemFromCart {
+
+    productId: any
+    userId: string
+}
+
+export const deleteItemInCart = async ({ productId, userId}: DeleteItemFromCart) => {
+
+    const cart = await getActiveCartForUser({ userId})
+
+    // Does the item exist in the cart?
+    const existsInCart = cart.items.find((p) => p.product.toString() === productId)
+
+    if (!existsInCart) {
+
+        return { data: "Item Does not exist in cart", statusCode: 400}
+    }
+
+    const otherCartItems = cart.items.filter((p) => p.product.toString() !== productId)
+
+    let total = calculateCartTotalItems({ cartItems: otherCartItems})
+
+    cart.items = otherCartItems
+    cart.totalAmount = total
+
+    const updatedCart = await cart.save()
+    
+    return { data: updatedCart, statusCode: 200}
+}
+
+interface ClearCart {
+
+    userId: string
+}
+
+export const clearCart = async ({ userId}: ClearCart) => {
+
+    const cart = await getActiveCartForUser({ userId})
+
+    cart.items = []
+    cart.totalAmount = 0
+
+    const updatedCart = await cart.save()
+    
+    return { data: updatedCart, statusCode: 200}
+}
+
+
+const calculateCartTotalItems = ({ cartItems}: { cartItems: ICartItem[]}) => {
+
+    let total = cartItems.reduce((sum, product) => {
+        
+        sum += product.quantity * product.unitPrice
+        return sum
+    }, 0)
+
+    return total
 }
