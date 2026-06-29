@@ -8,21 +8,28 @@ export const getAllProducts = async () => {
 
 export const seedInitialProducts = async () => {
 
-    const Initproducts = [
+    try {
+        
+        const Initproducts = [
 
-        { 
-            title: "MSI Laptop", 
-            image: "https://www.pocket-lint.com/laptops/news/msi/144117-msi-unveils-new-line-of-gaming-laptops-including-the-world-s-first-intel-core-i9-powered-laptop/", 
-            price: 1000, 
-            stock: 4
+            { 
+                title: "MSI Laptop", 
+                image: "https://www.pocket-lint.com/laptops/news/msi/144117-msi-unveils-new-line-of-gaming-laptops-including-the-world-s-first-intel-core-i9-powered-laptop/", 
+                price: 1000, 
+                stock: 4
+            }
+        ]
+    
+        const products = await getAllProducts()
+    
+        if (products.length === 0) {
+    
+            await productModel.insertMany(Initproducts)
         }
-    ]
 
-    const products = await getAllProducts()
-
-    if (products.length === 0) {
-
-        await productModel.insertMany(Initproducts)
+    } catch (err) {
+        
+        console.error("Cannot See Database", err)
     }
 
 }
