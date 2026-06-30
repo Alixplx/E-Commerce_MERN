@@ -1,8 +1,8 @@
 import express from "express"
 import mongoose from "mongoose"
-import userRoute from "../src/routes/userRoute.ts"
-import cartRoute from "../src/routes/cartRoute.ts"
-import productRoute from "../src/routes/productRoute.ts"
+import userRoute from "./routes/userRoute.ts"
+import cartRoute from "./routes/cartRoute.ts"
+import productRoute from "./routes/productRoute.ts"
 import { seedInitialProducts } from "./services/productService.ts"
 import dotenv from "dotenv"
 
