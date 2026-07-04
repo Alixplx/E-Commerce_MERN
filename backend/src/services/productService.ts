@@ -14,9 +14,21 @@ export const seedInitialProducts = async () => {
 
             { 
                 title: "MSI Laptop", 
-                image: "https://www.pocket-lint.com/laptops/news/msi/144117-msi-unveils-new-line-of-gaming-laptops-including-the-world-s-first-intel-core-i9-powered-laptop/", 
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfGlR2muWNqaWuz3HCsBbKFoRmStCFi0trbTlHjWemlLBynLbyy6YmGtw&s=10", 
                 price: 1000, 
                 stock: 4
+            },
+            { 
+                title: "Dell Laptop", 
+                image: "https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/dell/16250/media-gallery/cloud-plastic/non-fpr/notebook-dc16250-nt-ice-blue-gallery-1.psd?fmt=png-alpha&pscan=auto&scl=1&hei=804&wid=1087&qlt=100,1&resMode=sharp2&size=1087,804&chrss=full", 
+                price: 800, 
+                stock: 6
+            },
+            { 
+                title: "Asus Laptop", 
+                image: "https://store.alnabaa.com/cdn/shop/files/dlcdnwebimgs.asus_39f601e4-777e-4c82-bb79-84279faa61d6.png?v=1761672527&width=2400", 
+                price: 500, 
+                stock: 9
             }
         ]
     

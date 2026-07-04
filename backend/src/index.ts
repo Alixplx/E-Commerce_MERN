@@ -5,6 +5,7 @@ import cartRoute from "./routes/cartRoute.ts"
 import productRoute from "./routes/productRoute.ts"
 import { seedInitialProducts } from "./services/productService.ts"
 import dotenv from "dotenv"
+import cors from "cors"
 
 
 dotenv.config()
@@ -14,6 +15,7 @@ const port = 3001
 
 
 app.use(express.json())
+app.use(cors())
 
 // 127.0.0.1 == localhost
 mongoose
@@ -32,5 +34,5 @@ app.use("/cart", cartRoute)
 
 app.listen(port, () => {
 
-    console.log(`Server is running at http:/localhost:${port}`)
+    console.log(`Server is running at http://localhost:${port}`)
 })
