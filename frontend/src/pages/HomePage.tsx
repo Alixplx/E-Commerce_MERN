@@ -4,14 +4,13 @@ import ProductCard from "../Components/ProductCard"
 import { useEffect, useState } from "react"
 import type { Product } from "../types/Products"
 import { Box } from "@mui/material"
+import { BASE_URL } from "../Constants/Constants"
 
 
 const HomePage = () => {
 
     const [products, setProducts] = useState<Product[]>([])
     const [error, setError] = useState(false)
-
-    const BASE_URL = import.meta.env.VITE_BASE_URL
 
     useEffect(() => {
 
