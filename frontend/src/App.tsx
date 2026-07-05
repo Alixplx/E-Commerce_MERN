@@ -2,23 +2,27 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 import NavBar from "./Components/Navbar"
 import HomePage from "./pages/HomePage"
 import RegisterPage from "./pages/RegsiterPage"
+import AuthProvider from "./context/AuthProvider"
 
 
 function App() {
 
   return (
 
-    <BrowserRouter>
+    <AuthProvider>
 
-      <NavBar />
+      <BrowserRouter>
 
-      <Routes>
+        <NavBar />
 
-        <Route path="/" element={ <HomePage /> } />
-        <Route path="/register" element={ <RegisterPage /> } />
-      </Routes>
+        <Routes>
 
-    </BrowserRouter>
+          <Route path="/" element={ <HomePage /> } />
+          <Route path="/register" element={ <RegisterPage /> } />
+        </Routes>
+
+      </BrowserRouter>
+    </AuthProvider>
   )
 }
 

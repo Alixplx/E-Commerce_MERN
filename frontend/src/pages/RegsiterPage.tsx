@@ -5,6 +5,7 @@ import TextField from "@mui/material/TextField"
 import Button from "@mui/material/Button"
 import { useRef, useState } from "react"
 import { BASE_URL } from "../Constants/Constants"
+import { useAuth } from "../context/AuthContext"
 
 
 
@@ -17,12 +18,21 @@ const RegisterPage = () => {
     const emailRef = useRef<HTMLInputElement>(null)
     const passwordRef = useRef<HTMLInputElement>(null)
 
+    const { login} = useAuth()
+
     const handleSubmit = async () => {
 
         const firstName = firstNameRef.current?.value
         const lastName = lastNameRef.current?.value
         const email = emailRef.current?.value
         const password = passwordRef.current?.value
+
+        // Validate Form Data
+        if (!firstName || !lastName || !email || !password) {
+
+            setError("Check Submitted Form Data")
+            return
+        }
 
         // Make call to API To Create User
         const response = await fetch(`${BASE_URL}user/register`, {
@@ -38,8 +48,15 @@ const RegisterPage = () => {
             return
         }
 
-        const data = await response.json()
-        console.log(data)
+        const token = await response.json()
+
+        if (!token) {
+
+            setError("Incorrect Token")
+            return
+        }
+
+        login(email, token)
     }
 
     return (
