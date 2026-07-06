@@ -21,7 +21,7 @@ function NavBar() {
 
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
 
-  const { username, isAuthenticated} = useAuth()
+  const { username, isAuthenticated, logout} = useAuth()
 
   const navigate = useNavigate()
 
@@ -37,6 +37,13 @@ function NavBar() {
   const handleLogin = () => {
 
     navigate("/login")
+  }
+
+  const handleLogout = () => {
+
+    logout()
+    navigate("/")
+    handleCloseUserMenu()
   }
 
 
@@ -114,9 +121,9 @@ function NavBar() {
                       <Typography sx={{ textAlign: 'center' }}>My Orders</Typography>
                   </MenuItem>
 
-                  <MenuItem onClick={handleCloseUserMenu}>
+                  <MenuItem onClick={handleLogout}>
 
-                      <Typography sx={{ textAlign: 'center' }}>Logout</Typography>
+                      <Typography sx={{ textAlign: 'center'}}>Logout</Typography>
                   </MenuItem>
                 </Menu>
 
