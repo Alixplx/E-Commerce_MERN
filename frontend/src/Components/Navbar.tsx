@@ -14,6 +14,8 @@ import { useAuth } from '../context/AuthContext';
 import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button'
 import { useNavigate } from 'react-router-dom';
+import ShoppingCart from '@mui/icons-material/ShoppingCart';
+import Badge from '@mui/material/Badge';
 
 
 
@@ -46,6 +48,11 @@ function NavBar() {
     handleCloseUserMenu()
   }
 
+  const handleCart = () => {
+
+    navigate("/cart")
+  }
+
 
   return (
 
@@ -76,7 +83,15 @@ function NavBar() {
             </Typography>
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center" ,gap: 4, cursor: "pointer"}}>
+
+          <IconButton aria-label="cart" onClick={handleCart}>
+
+            <Badge color="secondary" variant="standard" badgeContent="4">
+
+              <ShoppingCart sx={{ color: "white"}} />
+            </Badge>
+          </IconButton>
 
             {
               isAuthenticated ? <>
