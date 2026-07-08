@@ -5,7 +5,7 @@ import TextField from "@mui/material/TextField"
 import Button from "@mui/material/Button"
 import { useRef, useState } from "react"
 import { BASE_URL } from "../Constants/Constants"
-import { useAuth } from "../context/AuthContext"
+import { useAuth } from "../context/Auth/AuthContext"
 import { useNavigate } from "react-router-dom"
 
 

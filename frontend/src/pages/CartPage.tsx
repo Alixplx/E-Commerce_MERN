@@ -2,7 +2,7 @@ import Typography from "@mui/material/Typography"
 import Container from "@mui/material/Container"
 import { useEffect, useState } from "react"
 import { BASE_URL } from "../Constants/Constants"
-import { useAuth } from "../context/AuthContext"
+import { useAuth } from "../context/Auth/AuthContext"
 
 
 const CartPage = () => {
