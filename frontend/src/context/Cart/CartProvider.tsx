@@ -193,7 +193,39 @@ const CartProvider: FC<PropsWithChildren> = ({ children}) => {
         }
     }
 
-    return <CartContext.Provider value={{ cartItems, totalAmount, addItemToCart, updatedItemInCart, removeItemInCart}}>
+    const clearCart = async () => {
+
+        try {
+
+            const response = await fetch(`${BASE_URL}cart`, {
+
+                method: "DELETE",
+                headers: { "Authorization": `Bearer ${token}`}
+            })
+
+            if (!response.ok) {
+
+                setError("Failed To Empty Cart")
+                return
+            }
+
+            const cart = await response.json()
+
+            if (!cart) {
+
+                setError("Failed To Parse Cart Data")
+            }
+
+            setCartItems([])
+            setTotalAmount(0)
+
+        } catch (error) {
+            
+            console.error(error)
+        }
+    }
+
+    return <CartContext.Provider value={{ cartItems, totalAmount, addItemToCart, updatedItemInCart, removeItemInCart, clearCart}}>
 
         {children}
     </CartContext.Provider>
