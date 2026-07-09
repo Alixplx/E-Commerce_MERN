@@ -16,6 +16,7 @@ import Button from '@mui/material/Button'
 import { useNavigate } from 'react-router-dom';
 import ShoppingCart from '@mui/icons-material/ShoppingCart';
 import Badge from '@mui/material/Badge';
+import { useCart } from '../context/Cart/CartContext';
 
 
 
@@ -24,6 +25,8 @@ function NavBar() {
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
 
   const { username, isAuthenticated, logout} = useAuth()
+
+  const { cartItems} = useCart()
 
   const navigate = useNavigate()
 
@@ -64,30 +67,34 @@ function NavBar() {
           
         <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100%", alignItems: "center"}}>
 
-          <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center"}}>
+          <Button variant='text' sx={{ color: "white"}} onClick={() => navigate("/")}>
 
-            <AdbIcon sx={{ display: "flex", mr: 1 }} />
-            <Typography
-              variant="h5"
-              noWrap
-              component="a"
-              sx={{
-                mr: 2,
-                display: { xs: 'none', md: 'flex' },
-                flexGrow: 1,
-                fontFamily: 'monospace',
-                fontWeight: 700,
-              }}
-            >
-              E-Mmerce
-            </Typography>
-          </Box>
+            <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center"}}>
+
+              <AdbIcon sx={{ display: "flex", mr: 1 }} />
+
+              <Typography
+                variant="h5"
+                noWrap
+                component="a"
+                sx={{
+                  mr: 2,
+                  display: { xs: 'none', md: 'flex' },
+                  flexGrow: 1,
+                  fontFamily: 'monospace',
+                  fontWeight: 700,
+                }}
+              >
+                E-Comerce
+              </Typography>
+            </Box>
+          </Button>
 
           <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center" ,gap: 4, cursor: "pointer"}}>
 
           <IconButton aria-label="cart" onClick={handleCart}>
 
-            <Badge color="secondary" variant="standard" badgeContent="4">
+            <Badge color="secondary" variant="standard" badgeContent={cartItems.length}>
 
               <ShoppingCart sx={{ color: "white"}} />
             </Badge>

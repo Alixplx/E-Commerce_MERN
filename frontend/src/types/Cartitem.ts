@@ -6,5 +6,5 @@ export interface Cartitem {
     title: string
     quantity: number
     unitPrice: number
-    productImage: string
+    image: string
 }
