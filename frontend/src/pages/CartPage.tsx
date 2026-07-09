@@ -9,12 +9,17 @@ import Delete from "@mui/icons-material/Delete"
 
 const CartPage = () => {
 
-    const { cartItems, totalAmount, updatedItemInCart} = useCart()    
+    const { cartItems, totalAmount, updatedItemInCart, removeItemInCart} = useCart()    
 
     const handleQuantity = (productId: string, quantity: number) => {
 
         if (quantity < 1) return
         updatedItemInCart(productId, quantity)
+    }
+
+    const handleRemoveItem = (productId: string) => {
+
+        removeItemInCart(productId)
     }
 
     return (
@@ -37,7 +42,7 @@ const CartPage = () => {
 
                                     <Typography variant="h5">{item.title}</Typography>
                                     <Typography>{item.quantity} x {item.unitPrice} IQ</Typography>
-                                    <Button> <Delete sx={{ color: "red"}} /> </Button>
+                                    <Button onClick={() => handleRemoveItem(item.productId)}> <Delete sx={{ color: "red"}} /> </Button>
                                 </Box>
                             </Box>
 
