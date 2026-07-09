@@ -9,7 +9,13 @@ import Delete from "@mui/icons-material/Delete"
 
 const CartPage = () => {
 
-    const { cartItems, totalAmount} = useCart()    
+    const { cartItems, totalAmount, updatedItemInCart} = useCart()    
+
+    const handleQuantity = (productId: string, quantity: number) => {
+
+        if (quantity < 1) return
+        updatedItemInCart(productId, quantity)
+    }
 
     return (
 
@@ -37,8 +43,8 @@ const CartPage = () => {
 
                             <ButtonGroup variant="contained" aria-label="Basic button group">
 
-                                <Button>+</Button>
-                                <Button>-</Button>
+                                <Button onClick={() => handleQuantity(item.productId, item.quantity + 1)}>+</Button>
+                                <Button onClick={() => handleQuantity(item.productId, item.quantity - 1)}>-</Button>
                             </ButtonGroup>
                         </Box>
                     ))
