@@ -5,13 +5,44 @@ import { useCart } from "../context/Cart/CartContext"
 import Box from "@mui/material/Box"
 import { TextField } from "@mui/material"
 import { useRef } from "react"
+import { BASE_URL } from "../Constants/Constants"
+import { useNavigate } from "react-router-dom"
+import { useAuth } from "../context/Auth/AuthContext"
 
 
 const CheckoutPage = () => {
 
-    const { cartItems, totalAmount} = useCart()    
+    const { cartItems, totalAmount} = useCart()
+
+    const { token} = useAuth()
 
     const addressRef = useRef<HTMLInputElement>(null)
+
+    const navigate = useNavigate()
+
+    const handleConfirmOrder = async () => {
+
+        const address = addressRef.current?.value
+        
+        if (!address) return
+
+        const response = await fetch(`${BASE_URL}cart/checkout`, {
+
+            method: "POST",
+            headers: { 
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify({address})
+        })
+
+        if (!response.ok) {
+
+            return
+        }
+
+        navigate("/order-success")
+    }
 
     return (
 
@@ -50,7 +81,7 @@ const CheckoutPage = () => {
                 </Box>
             </Box>
 
-            <Button variant="contained" sx={{ mt: 6}} fullWidth>Pay Now</Button>
+            <Button variant="contained" sx={{ mt: 6}} fullWidth onClick={handleConfirmOrder}>Pay Now</Button>
         </Container>
     )
 }
