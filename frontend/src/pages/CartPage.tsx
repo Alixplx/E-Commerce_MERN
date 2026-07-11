@@ -5,11 +5,14 @@ import ButtonGroup from '@mui/material/ButtonGroup'
 import { useCart } from "../context/Cart/CartContext"
 import Box from "@mui/material/Box"
 import Delete from "@mui/icons-material/Delete"
+import { useNavigate } from "react-router-dom"
 
 
 const CartPage = () => {
 
     const { cartItems, totalAmount, updatedItemInCart, removeItemInCart, clearCart} = useCart()    
+
+    const navigate = useNavigate()
 
     const handleQuantity = (productId: string, quantity: number) => {
 
@@ -20,6 +23,11 @@ const CartPage = () => {
     const handleRemoveItem = (productId: string) => {
 
         removeItemInCart(productId)
+    }
+
+    const handleCheckout = () => {
+
+        navigate("/checkout")
     }
 
     return (
@@ -60,9 +68,10 @@ const CartPage = () => {
                         ))
                     }
 
-                    <Box>
+                    <Box sx={{ display: "flex", justifyContent: "space-between"}}>
 
                         <Typography variant="h4">Total : {totalAmount.toFixed(2)} IQ</Typography>
+                        <Button variant="contained" onClick={handleCheckout}>Go To Checkout</Button>
                     </Box>
                 </Box> : <Typography>Cart is Empty, Please Add Shopping</Typography>
             }
